@@ -126,7 +126,7 @@ function sayHello(sb) {
     // of the listener (the sb parameter above).
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
-    /*jshint validthis: true */
+
     if (this.homePlanet === 'Earth') {
       console.log(hello['federation standard']);
     } else if (this.homePlanet === 'Qu\'onoS') {
