@@ -16,3 +16,4 @@ comments. Be sure to read everything. Run lab2.js with `node lab2.js`.
 
 
 #### Resources and Collaborators
+The majorirty of my research was done via the MDN site, seeing how the various function syntax was to look and how to use them. Advice from Stephanie on asserts.
