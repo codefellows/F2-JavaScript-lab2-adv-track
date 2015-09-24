@@ -50,7 +50,23 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
+// Step 1:
+function Blob() {}
+// Step 2:
+var blob = new Blob();
+// Step 3:
+blob.prototype.toFinish = function() {
+  var citizens   = 1000;
+  var rateOfCons = 1;
+  for (var i = 1; i < citizens; i++) {
+    rateOfCons = i + 1;
+    citizens -= rateOfCons;
+    console.log(i);
+  }
+  return i;
+};
+
+var hoursSpentInDowington = 44; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
 
@@ -59,6 +75,15 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 // of hours the blob needs to ooze its way through that town.
 
 function hoursToOoze(population, peoplePerHour) {
+  for (var i = 1; i < population; i++) {
+    peoplePerHour = i + 1;
+    population -= peoplePerHour;
+  }
+  if (population === 0) {
+    return 0
+  } else {
+    return i;
+  }
   // TODO: implement me based on the instructions above.
   // Be sure to then assign me to the Blob's prototype.
 }
