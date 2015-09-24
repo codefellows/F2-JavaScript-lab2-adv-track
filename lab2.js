@@ -63,10 +63,10 @@ blob.prototype.toFinish = function() {
     citizens -= rateOfCons;
     console.log(i);
   }
-  return i;
+  hoursSpentInDowington = i;
 };
 
-var hoursSpentInDowington = 44; // TODO: assign me the value of the
+var hoursSpentInDowington; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
 
