@@ -58,9 +58,9 @@ function eatDowington() {
   var totalPop = 1000;
   var rate = 1;
 
-  for (var i=1; i<totalPop; i++) {
-    rate = i+1;
-    totalPop = totalPop-rate;
+  for (var i = 1; i < totalPop; i++) {
+    rate = i + 1;
+    totalPop = totalPop - rate;
   }
   return i;
 }
@@ -79,9 +79,9 @@ console.log(hoursSpentInDowington);
   // TODO: implement me based on the instructions above.
   // Be sure to then assign me to the Blob's prototype.
 Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
-  for (var i=1; i<population; i++) {
-    peoplePerHour = i+1;
-    population = population-peoplePerHour;
+  for (var i = 1; i < population; i++) {
+    peoplePerHour = i + 1;
+    population = population - peoplePerHour;
   }
   if (population === 0) {
     return 0;
@@ -120,7 +120,8 @@ var hello = {
 
 // TODO: specify a home planet and a language
 // you'll need to add parameters to this constructor
-function SentientBeing (homePlanet, language) {
+
+function SentientBeing(homePlanet, language) {
   this.homePlanet = homePlanet;
   this.language = language;
   this.greeting = hello[this.language];
@@ -182,7 +183,7 @@ function lastLetterSort(stringArray) {
     // this byLastLetter function is a "compare function"
     // And check out the "comparing strings" section  here:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
-    if (a.charAt(a.length-1) > b.charAt(b.length-1)) {
+    if (a.charAt(a.length - 1) > b.charAt(b.length - 1)) {
       return 1;
     } else {
       return -1;
@@ -216,7 +217,7 @@ function sumSort(arrayOfArrays) {
     // TODO: implement me using sumArray
     //  order the arrays based on the sum of the numbers
     //  inside each array
-    if (sumArray(a) > sumArray(b)){
+    if (sumArray(a) > sumArray(b)) {
       return 1;
     } else {
       return -1;
@@ -227,8 +228,8 @@ function sumSort(arrayOfArrays) {
 console.log(sumSort([[40, 10, 35, 15], [1, 9, 4, 6]]));
 console.log(sumSort([[5, 10, 15], [2, 8], [1, 9, 90]]));
 
-assert(sumSort([[40, 10, 35, 15], [1, 9, 4, 6]]).value === [[1, 9, 4, 6],[40, 10, 35, 15]].value, 'sorts arrays based on sum of numbers inside each array');
-assert(sumSort([[5, 10, 15], [2, 8], [1, 9, 90]]).value === [[2,8],[5, 10, 15], [1, 9, 90]].value, 'sorts arrays based on sum of numbers inside each array');
+assert(sumSort([[40, 10, 35, 15], [1, 9, 4, 6]]).value === [[1, 9, 4, 6], [40, 10, 35, 15]].value, 'sorts arrays based on sum of numbers inside each array');
+assert(sumSort([[5, 10, 15], [2, 8], [1, 9, 90]]).value === [[2, 8], [5, 10, 15], [1, 9, 90]].value, 'sorts arrays based on sum of numbers inside each array');
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
 // Makes sure this file passes jshint and jscs
