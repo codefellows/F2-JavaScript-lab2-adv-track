@@ -91,7 +91,7 @@ Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
 };
 
 console.log(blob.hoursToOoze(1000, 1));
-console.log(blob.hoursToOoze(10, 1));
+// console.log(blob.hoursToOoze(10, 1));
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -118,13 +118,20 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing () {
-  // TODO: specify a home planet and a language
-  // you'll need to add parameters to this constructor
-}
+// TODO: specify a home planet and a language
+// you'll need to add parameters to this constructor
+function SentientBeing (homePlanet, language) {
+  this.homePlanet = homePlanet;
+  this.language = language;
+  this.greeting = hello[this.language];
+};
 
 // sb is a SentientBeing object
-function sayHello (sb) {
+SentientBeing.prototype.sayHello = function(sb) {
+  console.log(this.greeting);
+  // console.log(sb.greeting);
+  return sb.greeting;
+
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
@@ -132,12 +139,27 @@ function sayHello (sb) {
     // to do the translating
 
     //TODO: put this on the SentientBeing prototype
-  }
+};
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
+function Klingon() {};
+Klingon.prototype = new SentientBeing('Qo\'nos', 'klingon');
+
+function Human() {};
+Human.prototype = new SentientBeing('Earth', 'federation standard');
+
+function Romulan() {};
+Romulan.prototype = new SentientBeing('Romulus', 'romulan')
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
+  'the klingon should hear nuqneH');
+
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru', 'the romulan should hear Jolantru');
+assert((new Klingon()).sayHello(new Human()) === 'hello', 'the human should hear hello');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru', 'the romulan should hear Jolantru');
+assert((new Romulan()).sayHello(new Human()) === 'hello', 'the human should hear hello');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
 
 // TODO: write five more assertions, to complete all the possible
