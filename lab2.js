@@ -50,7 +50,7 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-function Blob() {};
+function Blob() {}
 
 var blob = new Blob();
 
@@ -61,9 +61,9 @@ function eatDowington() {
   for (var i=1; i<totalPop; i++) {
     rate = i+1;
     totalPop = totalPop-rate;
-  };
+  }
   return i;
-};
+}
 
 var hoursSpentInDowington = eatDowington();
 console.log(hoursSpentInDowington);
@@ -82,12 +82,12 @@ Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
   for (var i=1; i<population; i++) {
     peoplePerHour = i+1;
     population = population-peoplePerHour;
-  };
+  }
   if (population === 0) {
     return 0;
   } else {
     return i;
-  };
+  }
 };
 
 console.log(blob.hoursToOoze(1000, 1));
@@ -124,7 +124,7 @@ function SentientBeing (homePlanet, language) {
   this.homePlanet = homePlanet;
   this.language = language;
   this.greeting = hello[this.language];
-};
+}
 
 // sb is a SentientBeing object
 SentientBeing.prototype.sayHello = function(sb) {
@@ -143,14 +143,14 @@ SentientBeing.prototype.sayHello = function(sb) {
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
-function Klingon() {};
+function Klingon() {}
 Klingon.prototype = new SentientBeing('Qo\'nos', 'klingon');
 
-function Human() {};
+function Human() {}
 Human.prototype = new SentientBeing('Earth', 'federation standard');
 
-function Romulan() {};
-Romulan.prototype = new SentientBeing('Romulus', 'romulan')
+function Romulan() {}
+Romulan.prototype = new SentientBeing('Romulus', 'romulan');
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
@@ -182,24 +182,53 @@ function lastLetterSort(stringArray) {
     // this byLastLetter function is a "compare function"
     // And check out the "comparing strings" section  here:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+    if (a.charAt(a.length-1) > b.charAt(b.length-1)) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
-  stringArray.sort(byLastLetter);
+  return stringArray.sort(byLastLetter);
 }
+console.log(lastLetterSort(['mom', 'dad', 'brother', 'cat']));
+console.log(lastLetterSort(['daisy', 'sunflower', 'iris', 'rose']));
+
+assert(lastLetterSort(['mom', 'dad', 'brother', 'cat']).value === ['dad', 'mom', 'brother', 'cat'].value, 'alpha order by last letter');
+assert(lastLetterSort(['daisy', 'sunflower', 'iris', 'rose']).value === ['rose', 'sunflower', 'iris', 'daisy'].value, 'alpha order by last letter');
 
 function sumArray(numberArray) {
   var sum = 0;
   // TODO: implement me using forEach
+  numberArray.forEach(function(number) {
+    sum += number;
+  });
   return sum;
 }
 
+console.log(sumArray([1, 9, 4, 6]));
+console.log(sumArray([40, 10, 35, 15]));
+
+assert(sumArray([1, 9, 4, 6]) === 20, 'the sum of the array is 20');
+assert(sumArray([40, 10, 35, 15]) === 100, 'the sum of the array is 100');
+
 function sumSort(arrayOfArrays) {
-  arrayOfArrays.sort(function(item) {
+  return arrayOfArrays.sort(function(a, b) {
     // TODO: implement me using sumArray
     //  order the arrays based on the sum of the numbers
     //  inside each array
+    if (sumArray(a) > sumArray(b)){
+      return 1;
+    } else {
+      return -1;
+    }
   });
 }
 
+console.log(sumSort([[40, 10, 35, 15], [1, 9, 4, 6]]));
+console.log(sumSort([[5, 10, 15], [2, 8], [1, 9, 90]]));
+
+assert(sumSort([[40, 10, 35, 15], [1, 9, 4, 6]]).value === [[1, 9, 4, 6],[40, 10, 35, 15]].value, 'sorts arrays based on sum of numbers inside each array');
+assert(sumSort([[5, 10, 15], [2, 8], [1, 9, 90]]).value === [[2,8],[5, 10, 15], [1, 9, 90]].value, 'sorts arrays based on sum of numbers inside each array');
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
 // Makes sure this file passes jshint and jscs
