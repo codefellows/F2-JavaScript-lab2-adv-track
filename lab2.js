@@ -50,7 +50,27 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
+function Blob(population, peoplePerHour) {
+  this.population = population;
+  this.peoplePerHour = peoplePerHour;
+  this.hour = 1;
+};
+
+Blob.prototype.calculateHours = function() {
+  while (this.population > 0) {
+    this.population = this.population - this.peoplePerHour;
+    this.hour++;
+    this.peoplePerHour++;
+  };
+  return this.hour;
+};
+
+var blob = new Blob(1000, 1);
+console.log(blob.calculateHours());
+
+var hoursSpentInDowington = blob.calculateHours();
+console.log(hoursSpentInDowington);
+                           // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
 
@@ -61,7 +81,14 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 function hoursToOoze(population, peoplePerHour) {
   // TODO: implement me based on the instructions above.
   // Be sure to then assign me to the Blob's prototype.
-}
+  this.population = population;
+  this.peoplePerHour = peoplePerHour;
+};
+
+hoursToOoze.prototype = new Blob();
+
+var blob2 = new hoursToOoze(2000, 2);
+console.log(blob2.calculateHours());
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
