@@ -50,8 +50,8 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 function Blob() {
-};
-var blob = new Blob;
+}
+var blob = new Blob();
 function eatDow() {
   var i = 0;
   var rate = 1;
@@ -62,8 +62,8 @@ function eatDow() {
     i++;
   }
   var hoursSpentInDowington = i;
-  console.log(hoursSpentInDowington)
-};
+  console.log(hoursSpentInDowington);
+}
 eatDow();
 var hoursSpentInDowington; // TODO: assign me the value of the
                            // above calculation (how long it took
@@ -80,7 +80,7 @@ Blob.prototype.hoursToOoze(population, peoplePerHour) {
     population -= peoplePerHour;
     i++;
   }
-  console.log(i)
+  console.log(i);
 }
 /*would a for loop be a better choice here? ...
 for (var i = 0, i < population, i++) {
@@ -125,7 +125,7 @@ function SentientBeing (home, lang) {
 }
 
 // sb is a SentientBeing object
-function sayHello (sb) {
+SentientBeing.prototype.sayHello (sb) {
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
