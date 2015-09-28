@@ -49,7 +49,22 @@ function assert(expression, failureMessage) {
  TODO: Then, use a loop to calculate how long it took the blob to finish
  with Dowington.
 */
-
+function Blob() {
+};
+var blob = new Blob;
+function eatDow() {
+  var i = 0;
+  var rate = 1;
+  var pop = 1000;
+  while (i < pop) {
+    rate = i + 1;
+    pop -= rate;
+    i++;
+  }
+  var hoursSpentInDowington = i;
+  console.log(hoursSpentInDowington)
+};
+eatDow();
 var hoursSpentInDowington; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
@@ -58,10 +73,18 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
-function hoursToOoze(population, peoplePerHour) {
+Blob.prototype.hoursToOoze(population, peoplePerHour) {
+  var i = 0;
+  while (i < population) {
+    peoplePerHour = i + 1;
+    population -= peoplePerHour;
+    i++;
+  }
+  console.log(i)
+}
   // TODO: implement me based on the instructions above.
   // Be sure to then assign me to the Blob's prototype.
-}
+
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -79,13 +102,14 @@ var hello = {
   romulan: 'Jolan\'tru', // home planet is Romulus
   'federation standard': 'hello' // home planet is Earth
 };
-
 // TODO: define a constructor that creates objects to represent
 // sentient beings. They have a home planet, a language that they
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing () {
+function SentientBeing (home, lang) {
+  this.home = home;
+  this.lang = lang;
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
 }
