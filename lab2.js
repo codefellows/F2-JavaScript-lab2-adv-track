@@ -117,25 +117,44 @@ var hello = {
 
 function SentientBeing(homePlanet, language) {
   this.homePlanet = homePlanet;
-  this.language   = language;
+  this.language   = hello.language;
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
 }
 
 // sb is a SentientBeing object
 SentientBeing.prototype.sayHello = function(sb) {
-    console.log(sb)
-    // TODO: say hello prints out (console.log's) hello in the
-    // language of the speaker, but returns it in the language
-    // of the listener (the sb parameter above).
-    // use the 'hello' object at the beginning of this exercise
-    // to do the translating
+  console.log(this.language);
+  return sb.language;
+  // TODO: say hello prints out (console.log's) hello in the
+  // language of the speaker, but returns it in the language
+  // of the listener (the sb parameter above).
+  // use the 'hello' object at the beginning of this exercise
+  // to do the translating
 
-    //TODO: put this on the SentientBeing prototype
+  //TODO: put this on the SentientBeing prototype
 }
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
+function Human() {
+  this.homePlanet = 'Earth';
+  this.language = hello.klingon;
+}
+
+function Romulan() {
+  this.homePlanet = 'Romulus';
+  this.language = hello.klingon;
+}
+
+function Klingon() {
+  this.homePlanet = "Qo'noS";
+  this.language = hello.klingon;
+}
+
+Human.prototype   = new SentientBeing();
+Romulan.prototype = new SentientBeing();
+Klingon.prototype = new SentientBeing();
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
