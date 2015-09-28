@@ -1,5 +1,4 @@
 'use strict';
-
 // LAB 2: SORTING AND CAMPY SCI-FI
 
 // Welcome to Lab 2 =)
@@ -50,7 +49,22 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
+var Blob = function() {
+};
+
+var blob = new Blob();
+
+var peopleInDownington = 1000;
+var consumptionRate = 1;
+var hours = 0;
+
+while (peopleInDownington > 0) {
+  peopleInDownington = peopleInDownington - consumptionRate;
+  consumptionRate++;
+  hours++;
+}
+
+var hoursSpentInDowington = hours; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
 
@@ -61,7 +75,20 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 function hoursToOoze(population, peoplePerHour) {
   // TODO: implement me based on the instructions above.
   // Be sure to then assign me to the Blob's prototype.
+  var arbitraryPopulation = population;
+  var currentConsumptionRate = peoplePerHour;
+
+  var hours = 0;
+
+  while (arbitraryPopulation > 0) {
+    arbitraryPopulation = arbitraryPopulation - currentConsumptionRate;
+    currentConsumptionRate++;
+    hours++;
+  }
+  return hours;
 }
+
+Blob.prototype.hoursToOoze = hoursToOoze;
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -85,26 +112,50 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing () {
+function SentientBeing(homePlanet, tounge) {
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
+  this.homePlanet = homePlanet;
+  this.tounge = tounge;
 }
 
 // sb is a SentientBeing object
-function sayHello (sb) {
+SentientBeing.prototype.sayHello = function(sb) {
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
-
+    var speakerHello = hello[this.tounge];
+    var listenerHello = hello[sb.tounge];
+    console.log(speakerHello);
+    return listenerHello;
     //TODO: put this on the SentientBeing prototype
-  }
+  };
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
 
+function Human() {}
+Human.prototype = new SentientBeing('Earth', 'federation standard');
+
+function Klingon() {}
+Klingon.prototype = new SentientBeing('Klingon', 'klingon');
+
+function Romulan() {}
+Romulan.prototype = new SentientBeing('Romulus', 'romulan');
+
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
+  'the klingon should hear nuqneH');
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the klingon should hear nuqneH');
+assert((new Klingon()).sayHello(new Human()) === 'hello',
+  'the klingon should hear nuqneH');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the klingon should hear nuqneH');
+assert((new Romulan()).sayHello(new Human()) === 'hello',
+  'the klingon should hear nuqneH');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
 
 // TODO: write five more assertions, to complete all the possible
@@ -118,33 +169,80 @@ assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
 // will test your code)
 //*********************************************************
 
+var compareNestedArrays = function(arr1, arr2) {
+  if (arr1.length != arr2.length) {
+    console.log('The arrays have different lengths.');
+    return false;
+  }
+  for (var i = 0; i < arr1.length; i++)
+  {
+    for (var j = 0; j < arr1[i].length; j++)
+    {
+      if (arr1[i][j] != arr2[i][j])
+      {
+        console.log('The array elements are not the same, or are not in the same order');
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
     //TODO: implement me. sort the strings in alphabetical
     // order using their last letter
     // Read this about how the sort function works:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    // this byLastLetter function is a "compare function"
-    // And check out the "comparing strings" section  here:
+    // this byLastLetter function is a 'compare function'
+    // And check out the 'comparing strings' section  here:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+     //a.charAt(a.length-1) - b.charAt(b.length-1);
+    if (a.charAt(a.length - 1) > b.charAt(b.length - 1))
+    {
+      return 1;
+    }
+    else if (a.charAt(a.length - 1) < b.charAt(b.length - 1))
+    {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
   }
-  stringArray.sort(byLastLetter);
+  return stringArray.sort(byLastLetter);
 }
+var testArray = ['dog', 'cat', 'lizard', 'toad', 'owl', 'koala', 'greeb', 'unicorn'];
+
+assert(compareNestedArrays(lastLetterSort(testArray), ['koala', 'greeb', 'lizard', 'toad', 'dog', 'owl', 'unicorn', 'cat']), 'koala should come first!');
+assert(compareNestedArrays(lastLetterSort(['z', 'y', 'x']), ['x', 'y', 'z']), 'wrong order!');
 
 function sumArray(numberArray) {
   var sum = 0;
   // TODO: implement me using forEach
+  function addToSum(element) {
+    sum = sum + element;
+  }
+  numberArray.forEach(addToSum);
   return sum;
 }
 
+assert(sumArray([0]) === 0, 'The sum of [0] should be 0!');
+assert(sumArray([1, 2, 3, 4]) == 10, 'The sum of this array should be 10!');
+
 function sumSort(arrayOfArrays) {
-  arrayOfArrays.sort(function(item) {
+  arrayOfArrays.sort(function(a, b) {
     // TODO: implement me using sumArray
     //  order the arrays based on the sum of the numbers
     //  inside each array
+    return sumArray(a) - sumArray(b);
   });
+  return arrayOfArrays;
 }
 
+assert(compareNestedArrays(sumSort([[4], [2], [3], [1]]), [[1], [2], [3], [4]]), 'incorrect!');
+assert(compareNestedArrays(sumSort([[1, 100], [2, 95], [3, 4]]), [[3, 4], [2, 95], [1, 100]]), 'wrong!');
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
 // Makes sure this file passes jshint and jscs
