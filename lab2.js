@@ -133,18 +133,18 @@ SentientBeing.prototype.sayHello = function(sb) {
   // to do the translating
 
   //TODO: put this on the SentientBeing prototype
-}
+};
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
 function Human() {
   this.homePlanet = 'Earth';
-  this.language = hello.klingon;
+  this.language = hello['federation standard'];
 }
 
 function Romulan() {
   this.homePlanet = 'Romulus';
-  this.language = hello.klingon;
+  this.language = hello.romulan;
 }
 
 function Klingon() {
@@ -161,6 +161,17 @@ assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
 
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
+
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear Jolan\'tru');
+assert((new Klingon()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear Jolan\'tru');
+assert((new Romulan()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
+  'the klingon should hear nuqneH');
 
 //*********************************************************
 // PROBLEM 3: Sorting. 20 points.
