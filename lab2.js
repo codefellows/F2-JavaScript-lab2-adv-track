@@ -82,6 +82,14 @@ Blob.prototype.hoursToOoze(population, peoplePerHour) {
   }
   console.log(i)
 }
+/*would a for loop be a better choice here? ...
+for (var i = 0, i < population, i++) {
+peoplePerHour = i + 1;
+population -= peoplePerHour;
+}
+console.log(i)
+}
+*/
   // TODO: implement me based on the instructions above.
   // Be sure to then assign me to the Blob's prototype.
 
@@ -92,7 +100,9 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
-
+assert(blob.hoursToOoze(3, 1) === 2, 'three people should be eaten in 2 hours.');
+assert(blob.hourstoOoze(6, 1) === 3, 'six people should be eaten in 3 hours');
+assert(blob.hourstoOoze(14, 2) === 4, 'at this faster rate 14 people shold be eaten in 4 hours');
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
 //*********************************************************
