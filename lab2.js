@@ -65,7 +65,7 @@ function eatDow() {
   console.log(hoursSpentInDowington);
 }
 eatDow();
-var hoursSpentInDowington; // TODO: assign me the value of the
+ // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
 
@@ -73,7 +73,7 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
-Blob.prototype.hoursToOoze(population, peoplePerHour) {
+blob.prototype.hoursToOoze(population, peoplePerHour) {
   var i = 0;
   while (i < population) {
     peoplePerHour = i + 1;
@@ -131,8 +131,8 @@ SentientBeing.prototype.sayHello (sb) {
     // of the listener (the sb parameter above).
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
-
     //TODO: put this on the SentientBeing prototype
+    console.log(hello)
   }
 
 // TODO: create three subclasses of SentientBeing, one for each
