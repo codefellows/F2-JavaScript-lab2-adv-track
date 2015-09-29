@@ -49,9 +49,10 @@ function assert(expression, failureMessage) {
  TODO: Then, use a loop to calculate how long it took the blob to finish
  with Dowington.
 */
-function Blob() {
-}
+function Blob() {}
+
 var blob = new Blob();
+
 function eatDow() {
   var i = 0;
   var rate = 1;
@@ -73,7 +74,7 @@ eatDow();
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
-blob.prototype.hoursToOoze(population, peoplePerHour) {
+Blob.prototype.hoursToOoze(population, peoplePerHour) {
   var i = 0;
   while (i < population) {
     peoplePerHour = i + 1;
@@ -132,15 +133,36 @@ SentientBeing.prototype.sayHello (sb) {
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
     //TODO: put this on the SentientBeing prototype
-    console.log(hello)
+    console.log(hello[this.lang]);
+    return hello[sb.lang]
   }
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
-
+function Klingon() {
+  this.home = "Qo'noS",
+  this.lan = klingon;
+}
+function Human() {
+  this.home = "Earth",
+  this.lan = 'federation standard';
+}
+function Romulan() {
+  this.home = "Romulus",
+  this.lan = romulan;
+}
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
-
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'romulan hears jolan tru');
+assert((new Romulan()).sayHello(new Human()) === 'hello',
+  'humans hear hello');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
+  'klingons hear nuqneH');
+assert((new Klingon()).sayHello(new Human()) === 'hello',
+  'humans hear hello');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'ronulans hear jolan tru');
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
 
