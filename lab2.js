@@ -118,21 +118,12 @@ var hello = {
 function SentientBeing(homePlanet, language) {
   this.homePlanet = homePlanet;
   this.language   = hello.language;
-  // TODO: specify a home planet and a language
-  // you'll need to add parameters to this constructor
 }
 
 // sb is a SentientBeing object
 SentientBeing.prototype.sayHello = function(sb) {
   console.log(this.language);
   return sb.language;
-  // TODO: say hello prints out (console.log's) hello in the
-  // language of the speaker, but returns it in the language
-  // of the listener (the sb parameter above).
-  // use the 'hello' object at the beginning of this exercise
-  // to do the translating
-
-  //TODO: put this on the SentientBeing prototype
 };
 
 // TODO: create three subclasses of SentientBeing, one for each
@@ -181,22 +172,30 @@ assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
 // will test your code)
 //*********************************************************
 
+var stringArr = ['blue', 'red', 'yellow', 'green'];
+var numArr = [1, 2, 3, 4];
+
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
-    //TODO: implement me. sort the strings in alphabetical
-    // order using their last letter
-    // Read this about how the sort function works:
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    // this byLastLetter function is a "compare function"
-    // And check out the "comparing strings" section  here:
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+    var aString = a.length, bString = b.length;
+    if (a.charAt(aString - 1) < b.charAt(bString - 1)) {
+      return -1;
+    } else if (a.charAt(aString - 1) > b.charAt(bString - 1)) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
-  stringArray.sort(byLastLetter);
+  var sortedArr = stringArray.sort(byLastLetter);
+  return sortedArr;
 }
+console.log(lastLetterSort(stringArr));
 
 function sumArray(numberArray) {
   var sum = 0;
-  // TODO: implement me using forEach
+  numberArray.forEach(function(element, index, array) {
+    sum += numberArray[index];
+  });
   return sum;
 }
 
@@ -207,6 +206,9 @@ function sumSort(arrayOfArrays) {
     //  inside each array
   });
 }
+
+assert(lastLetterSort(stringArr) === ['red', 'blue', 'green', 'yellow'], 'The array is still unordered.');
+assert(sumArray(numArr) === 10, 'The sum of the array should equal 10.');
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
