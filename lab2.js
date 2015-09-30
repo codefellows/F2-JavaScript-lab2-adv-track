@@ -179,7 +179,7 @@ var numArr = [1, 2, 3, 4];
 var numArrTwo = [1, 2, 3, 4, 5, 6];
 
 var arrArrays = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-
+var arrArraysTwo = [[3, 4, 3], [4, 8, 6], [1, 3, 9]];
 
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
@@ -198,42 +198,29 @@ function lastLetterSort(stringArray) {
 
 function sumArray(numberArray) {
   var sum = 0;
-  numberArray.forEach(function(element, index, array) {
-    sum += numberArray[index];
+  numberArray.forEach(function(val) {
+    sum += val;
   });
+  console.log("sum = " + sum )
   return sum;
 }
 
 function sumSort(arrayOfArrays) {
-  for (var i = 0; i < arrayOfArrays.length; i++) {
-
-    var arrTotal = sumArray(arrayOfArrays[i]);
-    console.log(arrTotal);
-  }
-  var firstArr = sumArray(arrayOfArrays[0]);
-  var secondArr = sumArray(arrayOfArrays[0]);
+  arrayOfArrays.sort(function(a,b) {
+    var x = sumArray(a);
+    console.log("x = " + x);
+    var y = sumArray(b);
+    console.log("y = " + y);
+    if (x > y) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  console.log(arrayOfArrays);
+  return arrayOfArrays;
 }
-sumSort(arrArrays);
-
-// function sumSort(arrayOfArrays) {
-//   arrayOfArrays.sort(function(a,b) {
-//     var sumArray1 = sumArray(a);
-//     var sumArray2 = sumArray(b);
-//     console.dir(sumArray1);
-//     console.dir(sumArray2);
-//     if (sumArray1 > sumArray2) {
-//       return -1;
-//     } else {
-//       return 0;
-//     }
-//     // TODO: implement me using sumArray
-//     //  order the arrays based on the sum of the numbers
-//     //  inside each array
-//   });
-// }
-// sumSort(arrArrays);
-// console.log(sumSort(arrArrays));
-
+console.log("sumSort = " + sumSort(arrArraysTwo));
 
 // New array comparison function to allow assertion to work
 // Returns true if arrays are same: length, type, matching items.
@@ -268,8 +255,8 @@ assert(sumArray(numArr) === 10, 'The sum of the array should equal 10.');
 assert(sumArray(numArrTwo) === 21, 'The sum of the array should equal 21.');
 
 // sumSort ASSERTIONS
-assert();
-assert();
+assert(sumSort(arrArrays) === [[1, 2, 3], [4, 5, 6], [7, 8, 9]], 'The array is still out of order.');
+assert(sumSort(arrArraysTwo) == [[3, 4, 3], [1, 3, 9], [4, 8, 6]], 'The array is still out of order.');
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
