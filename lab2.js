@@ -172,8 +172,14 @@ assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
 // will test your code)
 //*********************************************************
 
+// Declaring variables/arrays to be used for assertions
 var stringArr = ['blue', 'red', 'yellow', 'green'];
+var stringArrTwo = ['black', 'purple', 'yellow', 'green'];
 var numArr = [1, 2, 3, 4];
+var numArrTwo = [1, 2, 3, 4, 5, 6];
+
+var arrArrays = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
 
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
@@ -186,10 +192,9 @@ function lastLetterSort(stringArray) {
       return 0;
     }
   }
-  var sortedArr = stringArray.sort(byLastLetter);
-  return sortedArr;
+  var newArr = stringArray.sort(byLastLetter);
+  return newArr;
 }
-console.log(lastLetterSort(stringArr));
 
 function sumArray(numberArray) {
   var sum = 0;
@@ -200,15 +205,71 @@ function sumArray(numberArray) {
 }
 
 function sumSort(arrayOfArrays) {
-  arrayOfArrays.sort(function(item) {
-    // TODO: implement me using sumArray
-    //  order the arrays based on the sum of the numbers
-    //  inside each array
-  });
+  for (var i = 0; i < arrayOfArrays.length; i++) {
+
+    var arrTotal = sumArray(arrayOfArrays[i]);
+    console.log(arrTotal);
+  }
+  var firstArr = sumArray(arrayOfArrays[0]);
+  var secondArr = sumArray(arrayOfArrays[0]);
+}
+sumSort(arrArrays);
+
+// function sumSort(arrayOfArrays) {
+//   arrayOfArrays.sort(function(a,b) {
+//     var sumArray1 = sumArray(a);
+//     var sumArray2 = sumArray(b);
+//     console.dir(sumArray1);
+//     console.dir(sumArray2);
+//     if (sumArray1 > sumArray2) {
+//       return -1;
+//     } else {
+//       return 0;
+//     }
+//     // TODO: implement me using sumArray
+//     //  order the arrays based on the sum of the numbers
+//     //  inside each array
+//   });
+// }
+// sumSort(arrArrays);
+// console.log(sumSort(arrArrays));
+
+
+// New array comparison function to allow assertion to work
+// Returns true if arrays are same: length, type, matching items.
+function deepEquals(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  if (arr1.typeof !== arr2.typeof) {
+    return false;
+  }
+  for (var i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      console.log('Items did not match.');
+      break;
+    }
+    console.log('Items matched.');
+  }
+  return true;
 }
 
-assert(lastLetterSort(stringArr) === ['red', 'blue', 'green', 'yellow'], 'The array is still unordered.');
+// Sorted array from lastLetterSort is stored in a variable
+// to use in deepEquals assertion (see below).
+var sortedArray = lastLetterSort(stringArr);
+var sortedArrayTwo = lastLetterSort(stringArrTwo)
+
+// DEEP EQUALS ON lastLetterSort FUNCTION ASSERTIONS
+assert(deepEquals(stringArr, sortedArray) === true, 'The arrays are not equal to one another.');
+assert(deepEquals(stringArrTwo, sortedArrayTwo) === true, 'The arrays are not equal to one another.');
+
+// sumArray ASSERTIONS
 assert(sumArray(numArr) === 10, 'The sum of the array should equal 10.');
+assert(sumArray(numArrTwo) === 21, 'The sum of the array should equal 21.');
+
+// sumSort ASSERTIONS
+assert();
+assert();
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
