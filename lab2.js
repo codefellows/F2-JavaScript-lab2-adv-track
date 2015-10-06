@@ -115,9 +115,9 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing(homePlanet, language) {
+function SentientBeing(homePlanet) {
   this.homePlanet = homePlanet;
-  this.language   = hello.language;
+  this.language = hello.language;
 }
 
 // sb is a SentientBeing object
@@ -143,7 +143,7 @@ function Klingon() {
   this.language = hello.klingon;
 }
 
-Human.prototype   = new SentientBeing();
+Human.prototype = new SentientBeing();
 Romulan.prototype = new SentientBeing();
 Klingon.prototype = new SentientBeing();
 
@@ -183,7 +183,8 @@ var arrArraysTwo = [[3, 4, 3], [4, 8, 6], [1, 3, 9]];
 
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
-    var aString = a.length, bString = b.length;
+    var aString = a.length;
+    var bString = b.length;
     if (a.charAt(aString - 1) < b.charAt(bString - 1)) {
       return -1;
     } else if (a.charAt(aString - 1) > b.charAt(bString - 1)) {
@@ -201,26 +202,21 @@ function sumArray(numberArray) {
   numberArray.forEach(function(val) {
     sum += val;
   });
-  console.log("sum = " + sum )
   return sum;
 }
 
 function sumSort(arrayOfArrays) {
-  arrayOfArrays.sort(function(a,b) {
+  arrayOfArrays.sort(function(a, b) {
     var x = sumArray(a);
-    console.log("x = " + x);
     var y = sumArray(b);
-    console.log("y = " + y);
     if (x > y) {
       return 1;
     } else {
       return -1;
     }
   });
-  console.log(arrayOfArrays);
   return arrayOfArrays;
 }
-console.log("sumSort = " + sumSort(arrArraysTwo));
 
 // New array comparison function to allow assertion to work
 // Returns true if arrays are same: length, type, matching items.
@@ -233,30 +229,26 @@ function deepEquals(arr1, arr2) {
   }
   for (var i = 0; i < arr1.length; i++) {
     if (arr1[i] !== arr2[i]) {
-      console.log('Items did not match.');
       break;
     }
-    console.log('Items matched.');
   }
   return true;
 }
 
-// Sorted array from lastLetterSort is stored in a variable
-// to use in deepEquals assertion (see below).
-var sortedArray = lastLetterSort(stringArr);
-var sortedArrayTwo = lastLetterSort(stringArrTwo)
-
-// DEEP EQUALS ON lastLetterSort FUNCTION ASSERTIONS
-assert(deepEquals(stringArr, sortedArray) === true, 'The arrays are not equal to one another.');
-assert(deepEquals(stringArrTwo, sortedArrayTwo) === true, 'The arrays are not equal to one another.');
+// lastLetterSort ASSERTIONS (using deepEquals to compare arrays)
+assert(deepEquals(lastLetterSort(stringArr), ['red', 'blue', 'green', 'yellow']) === true, 'The array is still out of order.');
+assert(deepEquals(lastLetterSort(stringArrTwo), ['purple', 'black', 'green', 'yellow']) === true, 'The array is still out of order.');
 
 // sumArray ASSERTIONS
 assert(sumArray(numArr) === 10, 'The sum of the array should equal 10.');
 assert(sumArray(numArrTwo) === 21, 'The sum of the array should equal 21.');
 
-// sumSort ASSERTIONS
-assert(sumSort(arrArrays) === [[1, 2, 3], [4, 5, 6], [7, 8, 9]], 'The array is still out of order.');
-assert(sumSort(arrArraysTwo) == [[3, 4, 3], [1, 3, 9], [4, 8, 6]], 'The array is still out of order.');
+// DEEP EQUALS on sumSort ASSERTIONS
+assert(deepEquals(sumSort(arrArrays), [[1, 2, 3], [4, 5, 6], [7, 8, 9]]) === true, 'The arrays are not equal to one another.');
+assert(deepEquals(sumSort(arrArraysTwo), [[3, 4, 3], [1, 3, 9], [4, 8, 6]]) === true, 'The arrays are not equal to one another.');
+
+// Why are assertions failing if console.log spits out ordered array?
+// Why is return spitting out array values without the array?
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
