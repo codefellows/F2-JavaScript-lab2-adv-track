@@ -16,3 +16,6 @@ comments. Be sure to read everything. Run lab2.js with `node lab2.js`.
 
 
 #### Resources and Collaborators
+
+<p>I briefly worked with <strong>Jose Tello, Kuk-Rim Choe, </strong> and had some assistance from <strong> Vi Dang </strong> to help me understand why my scope was throwing off my blob.hoursToOoze function.  That problem caused me significant issues and was / is the reason why this is being turned in late.  I had wanted the blob constructor to have properties of hours spent eating and people eaten, however that was throwing off my asserts as those values were carrying over into the next town (which, you know, if the blob was going to take over the world would be a feature and not a bug... but I digress).  I would be very curious to know how efficient the solution I provided is in overall context, and how I could make it more efficient. 
+<p>  For resources I used MDN and W3 Schools to help find information on sort.
