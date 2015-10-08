@@ -50,18 +50,38 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
-                           // above calculation (how long it took
-                           // the blob to eat Dowington)
+function Blob(remainingPopulation, rateConsumption, hours) {
+  this.remainingPopulation = remainingPopulation;
+  this.rateConsumption = rateConsumption;
+  this.hours = hours;
+}
+
+var blob = new Blob(1000, 1, 0);
+
+while (blob.remainingPopulation > 0) {
+  blob.hours++;
+  blob.rateConsumption++;
+  blob.remainingPopulation = blob.remainingPopulation - blob.rateConsumption;
+}
+
+var hoursSpentInDowington = blob.hours;
 
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
-function hoursToOoze(population, peoplePerHour) {
-  // TODO: implement me based on the instructions above.
-  // Be sure to then assign me to the Blob's prototype.
-}
+// TODO: implement me based on the instructions above.
+// Be sure to then assign me to the Blob's prototype.
+
+Blob.prototype.hoursToOoze = function(population, peoplePerHour) {
+  var hours = 0;
+  while (population > 0) {
+    hours++ ;
+    peoplePerHour++ ;
+    population = population - peoplePerHour;
+  }
+  return hours;
+};
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -69,6 +89,13 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
+
+assert(blob.hoursToOoze(500, 500) === 1,
+  'people equals rate means one hour only needed.');
+assert(blob.hoursToOoze(662400, 1) === 1150,
+  'Seattle should have a over a 1000 hours of life left.');
+assert(blob.hoursToOoze(320090000, 1) === 25301,
+  'The USA should have a litle over 1000 days or more than 25000 hours.');
 
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
@@ -85,21 +112,41 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing () {
+function SentientBeing(homePlanet, language) {
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
+
+  this.homePlanet = homePlanet;
+  this.language = language;
 }
 
 // sb is a SentientBeing object
-function sayHello (sb) {
+
+SentientBeing.prototype.sayHello = function(sb) {
+
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
 
-    //TODO: put this on the SentientBeing prototype
-  }
+    console.log(hello[this.language]);
+    return hello[sb.language];
+  };
+
+    //TODO: put this on the SentientBeing prototype - See above code for
+    // function (sb)
+
+// TODO: create three subclasses of SentientBeing, one for each
+// species above (Klingon, Human, Romulan).
+
+function Klingon() {}
+function Human() {}
+function Romulan() {}
+
+Klingon.prototype = new SentientBeing('Qo\'noS', 'klingon');
+Human.prototype = new SentientBeing('Earth', 'federation standard');
+Romulan.prototype = new SentientBeing('Romulus', 'romulan');
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
@@ -109,6 +156,17 @@ assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
 
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
+
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear nuqneH');
+assert((new Klingon()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear Jolan\'tru');
+assert((new Romulan()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
+  'the klingon should hear nuqneH');
 
 //*********************************************************
 // PROBLEM 3: Sorting. 20 points.
@@ -127,23 +185,46 @@ function lastLetterSort(stringArray) {
     // this byLastLetter function is a "compare function"
     // And check out the "comparing strings" section  here:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+    return a.charAt(a.length - 1) > b.charAt(b.length - 1);
   }
-  stringArray.sort(byLastLetter);
+  return stringArray.sort(byLastLetter);
 }
+
+var arrayTest = ['apple', 'berry', 'pear'];
+
+assert(lastLetterSort(arrayTest)[1] === 'pear', 'your fruits are a bit jumbled');
+assert(lastLetterSort(arrayTest)[2] === 'berry', 'your fruits are a bit jumbled');
 
 function sumArray(numberArray) {
   var sum = 0;
   // TODO: implement me using forEach
+
+  numberArray.forEach(function addNumber(value) {
+    sum += value;
+  });
   return sum;
 }
 
+assert(sumArray([1, 2, 3]) === 6, 'the math is not adding up for 1,2,3');
+assert(sumArray([5, 10, 20]) === 35, 'the math is not adding up for 5,10,20');
+
 function sumSort(arrayOfArrays) {
-  arrayOfArrays.sort(function(item) {
+  arrayOfArrays.sort(function(a, b) {
+    return sumArray(a) - sumArray(b);
     // TODO: implement me using sumArray
     //  order the arrays based on the sum of the numbers
     //  inside each array
   });
+  return arrayOfArrays;
 }
+
+var numArr2 = [[3, 4], [10, 5], [0, 6]];
+
+console.log(numArr2);
+console.log(sumSort(numArr2));
+
+assert(sumArray(numArr2[0]) === 6, 'the math is not adding up');
+assert(sumArray(numArr2[1]) === 7, 'the math is not adding up');
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
