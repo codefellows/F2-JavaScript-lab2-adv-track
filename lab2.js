@@ -50,6 +50,22 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
+// Step 1:
+function Blob() {}
+// Step 2:
+var blob = new Blob();
+// Step 3:
+function consumeDowington() {
+  var citizens   = 1000;
+  var rateOfCons = 1;
+  for (var i = 1; i < citizens; i++) {
+    rateOfCons = i + 1;
+    citizens -= rateOfCons;
+  }
+  hoursSpentInDowington = i;
+}
+consumeDowington();
+
 var hoursSpentInDowington; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
@@ -58,10 +74,17 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
-function hoursToOoze(population, peoplePerHour) {
-  // TODO: implement me based on the instructions above.
-  // Be sure to then assign me to the Blob's prototype.
-}
+Blob.prototype.hoursToOoze = function(population, peoplePerHour) {
+  for (var i = 1; i < population; i++) {
+    peoplePerHour = i + 1;
+    population -= peoplePerHour;
+  }
+  if (population === 0) {
+    return 0;
+  } else {
+    return i;
+  }
+};
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -69,6 +92,13 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
+
+assert(blob.hoursToOoze(100, 1) === hoursSpentInDowington,
+  '100 people.');
+assert(blob.hoursToOoze(500, 2) === hoursSpentInDowington,
+  '500 people with a rate of consumption of 2.');
+assert(blob.hoursToOoze(750, 1) === hoursSpentInDowington,
+  '750 people with a rate of consumption of 1.');
 
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
@@ -85,30 +115,54 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing () {
-  // TODO: specify a home planet and a language
-  // you'll need to add parameters to this constructor
+function SentientBeing(homePlanet) {
+  this.homePlanet = homePlanet;
+  this.language = hello.language;
 }
 
 // sb is a SentientBeing object
-function sayHello (sb) {
-    // TODO: say hello prints out (console.log's) hello in the
-    // language of the speaker, but returns it in the language
-    // of the listener (the sb parameter above).
-    // use the 'hello' object at the beginning of this exercise
-    // to do the translating
-
-    //TODO: put this on the SentientBeing prototype
-  }
+SentientBeing.prototype.sayHello = function(sb) {
+  console.log(this.language);
+  return sb.language;
+};
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
+function Human() {
+  this.homePlanet = 'Earth';
+  this.language = hello['federation standard'];
+}
+
+function Romulan() {
+  this.homePlanet = 'Romulus';
+  this.language = hello.romulan;
+}
+
+function Klingon() {
+  this.homePlanet = "Qo'noS";
+  this.language = hello.klingon;
+}
+
+Human.prototype = new SentientBeing();
+Romulan.prototype = new SentientBeing();
+Klingon.prototype = new SentientBeing();
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
 
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
+
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear Jolan\'tru');
+assert((new Klingon()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear Jolan\'tru');
+assert((new Romulan()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
+  'the klingon should hear nuqneH');
 
 //*********************************************************
 // PROBLEM 3: Sorting. 20 points.
@@ -118,32 +172,83 @@ assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
 // will test your code)
 //*********************************************************
 
+// Declaring variables/arrays to be used for assertions
+var stringArr = ['blue', 'red', 'yellow', 'green'];
+var stringArrTwo = ['black', 'purple', 'yellow', 'green'];
+var numArr = [1, 2, 3, 4];
+var numArrTwo = [1, 2, 3, 4, 5, 6];
+
+var arrArrays = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+var arrArraysTwo = [[3, 4, 3], [4, 8, 6], [1, 3, 9]];
+
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
-    //TODO: implement me. sort the strings in alphabetical
-    // order using their last letter
-    // Read this about how the sort function works:
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    // this byLastLetter function is a "compare function"
-    // And check out the "comparing strings" section  here:
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+    var aString = a.length;
+    var bString = b.length;
+    if (a.charAt(aString - 1) < b.charAt(bString - 1)) {
+      return -1;
+    } else if (a.charAt(aString - 1) > b.charAt(bString - 1)) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
-  stringArray.sort(byLastLetter);
+  var newArr = stringArray.sort(byLastLetter);
+  return newArr;
 }
 
 function sumArray(numberArray) {
   var sum = 0;
-  // TODO: implement me using forEach
+  numberArray.forEach(function(val) {
+    sum += val;
+  });
   return sum;
 }
 
 function sumSort(arrayOfArrays) {
-  arrayOfArrays.sort(function(item) {
-    // TODO: implement me using sumArray
-    //  order the arrays based on the sum of the numbers
-    //  inside each array
+  arrayOfArrays.sort(function(a, b) {
+    var x = sumArray(a);
+    var y = sumArray(b);
+    if (x > y) {
+      return 1;
+    } else {
+      return -1;
+    }
   });
+  return arrayOfArrays;
 }
+
+// New array comparison function to allow assertion to work
+// Returns true if arrays are same: length, type, matching items.
+function deepEquals(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  if (arr1.typeof !== arr2.typeof) {
+    return false;
+  }
+  for (var i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      break;
+    }
+  }
+  return true;
+}
+
+// lastLetterSort ASSERTIONS (using deepEquals to compare arrays)
+assert(deepEquals(lastLetterSort(stringArr), ['red', 'blue', 'green', 'yellow']) === true, 'The array is still out of order.');
+assert(deepEquals(lastLetterSort(stringArrTwo), ['purple', 'black', 'green', 'yellow']) === true, 'The array is still out of order.');
+
+// sumArray ASSERTIONS
+assert(sumArray(numArr) === 10, 'The sum of the array should equal 10.');
+assert(sumArray(numArrTwo) === 21, 'The sum of the array should equal 21.');
+
+// DEEP EQUALS on sumSort ASSERTIONS
+assert(deepEquals(sumSort(arrArrays), [[1, 2, 3], [4, 5, 6], [7, 8, 9]]) === true, 'The arrays are not equal to one another.');
+assert(deepEquals(sumSort(arrArraysTwo), [[3, 4, 3], [1, 3, 9], [4, 8, 6]]) === true, 'The arrays are not equal to one another.');
+
+// Why are assertions failing if console.log spits out ordered array?
+// Why is return spitting out array values without the array?
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
