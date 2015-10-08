@@ -16,3 +16,7 @@ comments. Be sure to read everything. Run lab2.js with `node lab2.js`.
 
 
 #### Resources and Collaborators
+
+Both TAs Hana and Vi helped out tremendously - especially on the Star Trek and arrar of array sections.
+
+Duckett was also a good resource and reference for the while loop syntax and arrays.
