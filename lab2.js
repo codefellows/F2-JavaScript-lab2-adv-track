@@ -50,18 +50,45 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
+function Blob() {
+  this.hoursToOoze = function(population, peoplePerHour) {
+    var hours = 0;
+    while(population >= 0) {
+      population -= peoplePerHour;
+      hours++;
+    }
+    return hours;
+  };
+}
+
+var blob = new Blob();
+
+var dowingtonCitizens = 1000;
+var hoursSpentInDowington = 0; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
+
+while(dowingtonCitizens >= 0) {
+   hoursSpentInDowington++;
+   dowingtonCitizens -= hoursSpentInDowington; //as hours increments, more people gets eaten, so reduce that from population
+   //console.log('hours spent ' +  hoursSpentInDowington + ' while eating ' + dowingtonCitizens);
+}
 
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
-
+/*
 function hoursToOoze(population, peoplePerHour) {
-  // TODO: implement me based on the instructions above.
-  // Be sure to then assign me to the Blob's prototype.
+  var hours = 0;
+  while (population >= 0) {
+    population -= peoplePerHour;
+    hours++;
+  }
+  return hours;
 }
+*/
+//console.log ('Blob enters town of 1500 and takes ' + hoursToOoze(1500, 5) + ' hours to eat 10peeps/hr rate!');
+
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -69,6 +96,13 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
+var hoursSpentInSeattle = 0, hoursSpentInTokyo = 0, hoursSpentInPortland = 0;
+assert(blob.hoursToOoze(467400, 10) === hoursSpentInSeattle,
+  'hoursSpentInSeattle should match hoursToOoze\'s result for 1500');
+assert(blob.hoursToOoze(1000000000, 100) === hoursSpentInTokyo,
+  'hoursSpentInTokyo should match hoursToOoze\'s result for 1000000000');
+assert(blob.hoursToOoze(5000000, 15) === hoursSpentInPortland,
+  'hoursSpentInPortland should match hoursToOoze\'s result for 5000000');
 
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
@@ -85,6 +119,7 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
+/*
 function SentientBeing () {
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
@@ -152,3 +187,4 @@ function sumSort(arrayOfArrays) {
 // ./node_modules/.bin/grunt jshint
 // ./node_modules/.bin/grunt jscs
 //*********************************************************
+*/
