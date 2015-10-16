@@ -154,19 +154,40 @@ function sayHello (sb) {
   SentientBeing.prototype.sayHello = sayHello;
 
   var prometheus = new SentientBeing('Romulus', 'romulan');
-  //var mySb = new SentientBeing("earth","klingon");
-  //mySb.sayHello();
-/*
+  var mySb = new SentientBeing("earth","klingon");
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
+function Human() {
+  SentientBeing.call(this);
+}
+Human.prototype = Object.create(SentientBeing.prototype);
+
+function Klingon() {
+  SentientBeing.call(this);
+}
+Klingon.prototype = Object.create(SentientBeing.prototype);
+
+function Romulan() {
+  SentientBeing.call(this);
+}
+Romulan.prototype = Object.create(SentientBeing.prototype);
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
 
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
-
+assert((new Romulan()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Klingon()).sayHello(new Human()) === 'hello',
+  'the human should hear hello');
+assert((new Human()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the romulan should hear Jolan\'tru');
+assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
+  'the klingon should hear nuqneH');
+assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
+  'the klingon should hear Jolan\'tru');
 //*********************************************************
 // PROBLEM 3: Sorting. 20 points.
 //
@@ -174,7 +195,7 @@ assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
 // assertions for each one (the assertions are how you
 // will test your code)
 //*********************************************************
-
+/*
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
     //TODO: implement me. sort the strings in alphabetical
