@@ -58,7 +58,9 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-function Blob() {
+function Blob(population, peoplePerHour) {
+  this.population = population;
+  this.peoplePerHour = peoplePerHour;
   this.hoursToOoze = function(population, peoplePerHour) {
     //console.log("enter hoursToOoze(" + population + ", " + peoplePerHour + ")");
     var hours = 0;
@@ -74,12 +76,11 @@ function Blob() {
   };
 }
 
-var blob = new Blob();
-
 var dowingtonCitizens = 1000;
 var hoursSpentInDowington = 0; // TODO: assign me the value of the
                            // above calculation (how long it took
                            // the blob to eat Dowington)
+var blob = new Blob(dowingtonCitizens, hoursSpentInDowington);
 
 while(dowingtonCitizens >= 0) {
    hoursSpentInDowington++;
@@ -102,19 +103,27 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 var hoursSpentInSeattle = 1142; //found this out from code written above
 var seattlePopulation = 662400;
 var seattleConsumptionRate = 10;
+var seattleBlob = new Blob(seattlePopulation, seattleConsumptionRate);
 
-var hoursSpentInTokyo = 0;
-var hoursSpentInPortland = 0;
+var tokyoPopulation = 1000000000;
+var tokyoConsRate = 100;
+var tokyoBlob = new Blob(tokyoPopulation, tokyoConsRate);
+var hoursSpentInTokyo = 44622;
+//console.log(hoursSpentInTokyo);
 
+var portlandPopulation = 583776;
+var portlandConsRate = 4;
+var portlandBlob = new Blob(portlandPopulation, portlandConsRate);
+var hoursSpentInPortland = 1078;
+//console.log(hoursSpentInPortland);
 
 //console.log("blob function gives me: " + blob.hoursToOoze(seattlePopulation, seattleConsumptionRate));
-assert(blob.hoursToOoze(seattlePopulation, seattleConsumptionRate) === hoursSpentInSeattle,
+assert(seattleBlob.hoursToOoze(seattlePopulation, seattleConsumptionRate) === hoursSpentInSeattle,
   hoursSpentInSeattle + ' should equal ' + blob.hoursToOoze(seattlePopulation, seattleConsumptionRate));
-
-assert(blob.hoursToOoze(1000000000, 100) === hoursSpentInTokyo,
-  'hoursSpentInTokyo should match hoursToOoze\'s result for 1000000000');
-assert(blob.hoursToOoze(5000000, 15) === hoursSpentInPortland,
-  'hoursSpentInPortland should match hoursToOoze\'s result for 5000000');
+assert(blob.hoursToOoze(tokyoPopulation, tokyoConsRate) === hoursSpentInTokyo,
+  'Hours Spent In Tokyo should match hoursToOoze\'s result for ' + tokyoPopulation);
+assert(blob.hoursToOoze(portlandPopulation, portlandConsRate) === hoursSpentInPortland,
+  'hoursSpentInPortland should match hoursToOoze\'s result for ' + portlandPopulation);
 
 
 //*********************************************************
@@ -158,6 +167,8 @@ function sayHello (sb) {
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
+// REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+
 function Human() {
   SentientBeing.call(this);
 }
@@ -188,6 +199,7 @@ assert((new Romulan()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
 assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
   'the klingon should hear Jolan\'tru');
+
 //*********************************************************
 // PROBLEM 3: Sorting. 20 points.
 //
