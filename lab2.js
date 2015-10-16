@@ -120,9 +120,9 @@ var hoursSpentInPortland = 1078;
 //console.log("blob function gives me: " + blob.hoursToOoze(seattlePopulation, seattleConsumptionRate));
 assert(seattleBlob.hoursToOoze(seattlePopulation, seattleConsumptionRate) === hoursSpentInSeattle,
   hoursSpentInSeattle + ' should equal ' + blob.hoursToOoze(seattlePopulation, seattleConsumptionRate));
-assert(blob.hoursToOoze(tokyoPopulation, tokyoConsRate) === hoursSpentInTokyo,
+assert(tokyoBlob.hoursToOoze(tokyoPopulation, tokyoConsRate) === hoursSpentInTokyo,
   'Hours Spent In Tokyo should match hoursToOoze\'s result for ' + tokyoPopulation);
-assert(blob.hoursToOoze(portlandPopulation, portlandConsRate) === hoursSpentInPortland,
+assert(portlandBlob.hoursToOoze(portlandPopulation, portlandConsRate) === hoursSpentInPortland,
   'hoursSpentInPortland should match hoursToOoze\'s result for ' + portlandPopulation);
 
 
@@ -160,29 +160,32 @@ function sayHello (sb) {
 
     //TODO: put this on the SentientBeing prototype
   }
-  SentientBeing.prototype.sayHello = sayHello;
 
-  var prometheus = new SentientBeing('Romulus', 'romulan');
-  var mySb = new SentientBeing("earth","klingon");
+SentientBeing.prototype.sayHello = sayHello;
+
+//var prometheus = new SentientBeing('Romulus', 'romulan');
+//var mySb = new SentientBeing("earth","klingon");
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
 // REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
-
 function Human() {
   SentientBeing.call(this);
 }
 Human.prototype = Object.create(SentientBeing.prototype);
+Human.prototype.sayHello = sayHello;
 
 function Klingon() {
   SentientBeing.call(this);
 }
 Klingon.prototype = Object.create(SentientBeing.prototype);
+Klingon.prototype.sayHello = sayHello;
 
 function Romulan() {
   SentientBeing.call(this);
 }
 Romulan.prototype = Object.create(SentientBeing.prototype);
+Romulan.prototype.sayHello = sayHello; 
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
@@ -207,7 +210,7 @@ assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
 // assertions for each one (the assertions are how you
 // will test your code)
 //*********************************************************
-/*
+
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
     //TODO: implement me. sort the strings in alphabetical
@@ -221,6 +224,7 @@ function lastLetterSort(stringArray) {
   stringArray.sort(byLastLetter);
 }
 
+/*
 function sumArray(numberArray) {
   var sum = 0;
   // TODO: implement me using forEach
