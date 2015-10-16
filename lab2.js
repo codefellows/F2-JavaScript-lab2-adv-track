@@ -42,6 +42,14 @@ function assert(expression, failureMessage) {
     third hour      |    3/hour        |        3         |
     fourth hour     |    4/hour        |        4         |
 
+    for the...      | starting rate of | persons consumed |
+                    |  consumption     |    that hour     |
+--------------------|------------------|------------------|
+    first hour      |    10/hour       |        10        |
+    second hour     |    11/hour       |        11        |
+    third hour      |    12/hour       |        12        |
+    fourth hour     |    13/hour       |        13        |
+
  TODO: First, make a constructor function, called Blob, that makes blobs.
 
  TODO: Next, create an instance of Blob named blob.
@@ -52,10 +60,15 @@ function assert(expression, failureMessage) {
 
 function Blob() {
   this.hoursToOoze = function(population, peoplePerHour) {
+    //console.log("enter hoursToOoze(" + population + ", " + peoplePerHour + ")");
     var hours = 0;
+    if(population === 0) {
+      return hours;
+    }
     while(population >= 0) {
-      population -= peoplePerHour;
+      population -= (peoplePerHour + hours);
       hours++;
+      //console.log(hours);
     }
     return hours;
   };
@@ -73,20 +86,10 @@ while(dowingtonCitizens >= 0) {
    dowingtonCitizens -= hoursSpentInDowington; //as hours increments, more people gets eaten, so reduce that from population
    //console.log('hours spent ' +  hoursSpentInDowington + ' while eating ' + dowingtonCitizens);
 }
-
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
-/*
-function hoursToOoze(population, peoplePerHour) {
-  var hours = 0;
-  while (population >= 0) {
-    population -= peoplePerHour;
-    hours++;
-  }
-  return hours;
-}
-*/
+
 //console.log ('Blob enters town of 1500 and takes ' + hoursToOoze(1500, 5) + ' hours to eat 10peeps/hr rate!');
 
 
@@ -96,13 +99,23 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
-var hoursSpentInSeattle = 0, hoursSpentInTokyo = 0, hoursSpentInPortland = 0;
-assert(blob.hoursToOoze(467400, 10) === hoursSpentInSeattle,
-  'hoursSpentInSeattle should match hoursToOoze\'s result for 1500');
+var hoursSpentInSeattle = 1142; //found this out from code written above
+var seattlePopulation = 662400;
+var seattleConsumptionRate = 10;
+
+var hoursSpentInTokyo = 0;
+var hoursSpentInPortland = 0;
+
+
+//console.log("blob function gives me: " + blob.hoursToOoze(seattlePopulation, seattleConsumptionRate));
+assert(blob.hoursToOoze(seattlePopulation, seattleConsumptionRate) === hoursSpentInSeattle,
+  hoursSpentInSeattle + ' should equal ' + blob.hoursToOoze(seattlePopulation, seattleConsumptionRate));
+
 assert(blob.hoursToOoze(1000000000, 100) === hoursSpentInTokyo,
   'hoursSpentInTokyo should match hoursToOoze\'s result for 1000000000');
 assert(blob.hoursToOoze(5000000, 15) === hoursSpentInPortland,
   'hoursSpentInPortland should match hoursToOoze\'s result for 5000000');
+
 
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
@@ -119,14 +132,17 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-/*
-function SentientBeing () {
+function SentientBeing (planet, language) {
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
+  this.planet = planet;
+  this.language = language;
 }
 
 // sb is a SentientBeing object
 function sayHello (sb) {
+  console.log(hello[this.language]);
+  return hello[sb.language];
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
@@ -135,6 +151,12 @@ function sayHello (sb) {
 
     //TODO: put this on the SentientBeing prototype
   }
+  SentientBeing.prototype.sayHello = sayHello;
+
+  var prometheus = new SentientBeing('Romulus', 'romulan');
+  //var mySb = new SentientBeing("earth","klingon");
+  //mySb.sayHello();
+/*
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
