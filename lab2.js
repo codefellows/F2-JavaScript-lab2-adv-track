@@ -248,29 +248,35 @@ assert(lastLetterSort(localAcronym) === ['christ', 'protest', 'jesus', 'under', 
   'Acronym was not properly sorted');
   //not sure why these aren't passing even though the results are what's expected
 
-var numbers = [1, 2, 4, 8, 16, 32, 64, 128, 1024 ]; //should equal 1279
+var numbers = [1, 2, 4, 8, 16, 32, 64, 128, 1024]; //should equal 1279
 var moreNumbers = [12, 63, 34, 72, 81, 19, 1]; //should equal 282
 
 function sumArray(numberArray) {
   var sum = 0;
-  numberArray.forEach(function(number){
+  numberArray.forEach(function(number) {
     sum += number;
-    //sconsole.log(sum);
+    //console.log(sum);
   });
   // TODO: implement me using forEach
   return sum;
 }
 assert(sumArray(numbers) === 1279, 'sum of numbers array did not match');
-assert(sumArray(numbers) === 282, 'sum of 2nd numbers array did not match');
-/*
+assert(sumArray(moreNumbers) === 282, 'sum of 2nd numbers array did not match');
+
 function sumSort(arrayOfArrays) {
+  var oneSumArray = []; //new array to hold the new sum of numbers
+  //var arrayItem = 0;
+  oneSumArray.push(sumArray(arrayOfArrays));
+  console.log(oneSumArray);
+
   arrayOfArrays.sort(function(item) {
     // TODO: implement me using sumArray
     //  order the arrays based on the sum of the numbers
     //  inside each array
+
   });
 }
-
+//console.log(sumSort(numbers));
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
 // Makes sure this file passes jshint and jscs
@@ -278,4 +284,3 @@ function sumSort(arrayOfArrays) {
 // ./node_modules/.bin/grunt jshint
 // ./node_modules/.bin/grunt jscs
 //*********************************************************
-*/
