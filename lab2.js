@@ -42,6 +42,7 @@ function assert(expression, failureMessage) {
     third hour      |    3/hour        |        3         |
     fourth hour     |    4/hour        |        4         |
 
+assuming that it only increments by 1 per hour?
     for the...      | starting rate of | persons consumed |
                     |  consumption     |    that hour     |
 --------------------|------------------|------------------|
@@ -146,12 +147,15 @@ function SentientBeing (planet, language) {
   // you'll need to add parameters to this constructor
   this.planet = planet;
   this.language = language;
+  this.sayHello = function (sb) {
+    console.log(hello[this.language]);
+    return hello[sb.language];
+  }.bind(this);
 }
-
+//REF: http://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/
+/*
 // sb is a SentientBeing object
 function sayHello (sb) {
-  console.log(hello[this.language]);
-  return hello[sb.language];
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
@@ -160,11 +164,12 @@ function sayHello (sb) {
 
     //TODO: put this on the SentientBeing prototype
   }
+ */
+//SentientBeing.prototype.sayHello = sayHello;
 
-SentientBeing.prototype.sayHello = sayHello;
-
-//var prometheus = new SentientBeing('Romulus', 'romulan');
-//var mySb = new SentientBeing("earth","klingon");
+var prometheus = new SentientBeing('Romulus', 'romulan');
+var mySb = new SentientBeing("earth","klingon");
+console.log('When prometheus says hi to another sentient being: ' + prometheus.sayHello(mySb));
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
@@ -173,19 +178,18 @@ function Human() {
   SentientBeing.call(this);
 }
 Human.prototype = Object.create(SentientBeing.prototype);
-Human.prototype.sayHello = sayHello;
 
 function Klingon() {
   SentientBeing.call(this);
 }
 Klingon.prototype = Object.create(SentientBeing.prototype);
-Klingon.prototype.sayHello = sayHello;
+//Klingon.prototype.sayHello = sayHello;
 
 function Romulan() {
   SentientBeing.call(this);
 }
 Romulan.prototype = Object.create(SentientBeing.prototype);
-Romulan.prototype.sayHello = sayHello; 
+//Romulan.prototype.sayHello = sayHello;
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
