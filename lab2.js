@@ -65,10 +65,10 @@ function Blob(population, peoplePerHour) {
   this.hoursToOoze = function(population, peoplePerHour) {
     //console.log("enter hoursToOoze(" + population + ", " + peoplePerHour + ")");
     var hours = 0;
-    if(population === 0) {
+    if (population === 0) {
       return hours;
     }
-    while(population >= 0) {
+    while (population >= 0) {
       population -= (peoplePerHour + hours);
       hours++;
       //console.log(hours);
@@ -83,17 +83,18 @@ var hoursSpentInDowington = 0; // TODO: assign me the value of the
                            // the blob to eat Dowington)
 var blob = new Blob(dowingtonCitizens, hoursSpentInDowington);
 
-while(dowingtonCitizens >= 0) {
-   hoursSpentInDowington++;
-   dowingtonCitizens -= hoursSpentInDowington; //as hours increments, more people gets eaten, so reduce that from population
-   //console.log('hours spent ' +  hoursSpentInDowington + ' while eating ' + dowingtonCitizens);
+while (dowingtonCitizens >= 0) {
+  hoursSpentInDowington++;
+  dowingtonCitizens -= hoursSpentInDowington;
 }
+//as hours increments, more people gets eaten, so reduce that from population
+//console.log('hours spent ' +  hoursSpentInDowington + ' while eating ' + dowingtonCitizens);
+
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
 //console.log ('Blob enters town of 1500 and takes ' + hoursToOoze(1500, 5) + ' hours to eat 10peeps/hr rate!');
-
 
 assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -125,8 +126,6 @@ assert(tokyoBlob.hoursToOoze(tokyoPopulation, tokyoConsRate) === hoursSpentInTok
   'Hours Spent In Tokyo should match hoursToOoze\'s result for ' + tokyoPopulation);
 assert(portlandBlob.hoursToOoze(portlandPopulation, portlandConsRate) === hoursSpentInPortland,
   'hoursSpentInPortland should match hoursToOoze\'s result for ' + portlandPopulation);
-
-
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
 //*********************************************************
@@ -142,12 +141,12 @@ var hello = {
 // speak, and method (that you'll place on the prototype) called
 // sayHello.
 
-function SentientBeing (planet, language) {
+function SentientBeing(planet, language) {
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
   this.planet = planet;
   this.language = language;
-  this.sayHello = function (sb) {
+  this.sayHello = function(sb) {
     console.log(hello[this.language]);
     return hello[sb.language];
   }.bind(this);
@@ -167,29 +166,30 @@ function sayHello (sb) {
  */
 //SentientBeing.prototype.sayHello = sayHello;
 
-var prometheus = new SentientBeing('Romulus', 'romulan');
-var mySb = new SentientBeing("earth","klingon");
-console.log('When prometheus says hi to another sentient being: ' + prometheus.sayHello(mySb));
+//var prometheus = new SentientBeing('Romulus', 'romulan');
+//var mySb = new SentientBeing("earth","klingon");
+//console.log('When prometheus says hi to another sentient being: ' + prometheus.sayHello(mySb));
 
 // TODO: create three subclasses of SentientBeing, one for each
 // species above (Klingon, Human, Romulan).
 // REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 function Human() {
-  SentientBeing.call(this);
+  SentientBeing.call(this, 'earth', 'federation standard'); //federation standard or hello
+  //this needs "this" + whatever is affiliated with earth in key:value of hello variable
 }
-Human.prototype = Object.create(SentientBeing.prototype);
+Human.prototype = Object.create(SentientBeing.prototype); //hooks this to subclass
 
 function Klingon() {
-  SentientBeing.call(this);
+  SentientBeing.call(this, 'Qo"noS', 'klingon');
 }
 Klingon.prototype = Object.create(SentientBeing.prototype);
-//Klingon.prototype.sayHello = sayHello;
+  //Klingon.prototype.sayHello = sayHello;
 
 function Romulan() {
-  SentientBeing.call(this);
+  SentientBeing.call(this, 'Romulus', 'romulan');
 }
 Romulan.prototype = Object.create(SentientBeing.prototype);
-//Romulan.prototype.sayHello = sayHello;
+  //Romulan.prototype.sayHello = sayHello;
 
 assert((new Human()).sayHello(new Klingon()) === 'nuqneH',
   'the klingon should hear nuqneH');
@@ -214,7 +214,7 @@ assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
 // assertions for each one (the assertions are how you
 // will test your code)
 //*********************************************************
-
+/*
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
     //TODO: implement me. sort the strings in alphabetical
@@ -228,7 +228,6 @@ function lastLetterSort(stringArray) {
   stringArray.sort(byLastLetter);
 }
 
-/*
 function sumArray(numberArray) {
   var sum = 0;
   // TODO: implement me using forEach
