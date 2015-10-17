@@ -214,7 +214,11 @@ assert((new Klingon()).sayHello(new Romulan()) === 'Jolan\'tru',
 // assertions for each one (the assertions are how you
 // will test your code)
 //*********************************************************
-/*
+var classmatesArray = ['johnson', 'carr', 'fallisgaard', 'tello', 'pham', 'dang', 'kitchell'];
+// should give you opposite order of Fallisgaard, Dang, Kitchell, Pham, Johnson, Tello, Carr
+
+var localAcronym = ['jesus', 'christ', 'made', 'seattle', 'under', 'protest'];
+
 function lastLetterSort(stringArray) {
   function byLastLetter(a, b) {
     //TODO: implement me. sort the strings in alphabetical
@@ -224,10 +228,25 @@ function lastLetterSort(stringArray) {
     // this byLastLetter function is a "compare function"
     // And check out the "comparing strings" section  here:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+    // get the last letter of each String & compare it
+    if (a[a.length - 1] > b[b.length - 1]) {
+      return -1;
+    }
+    if (a[a.length - 1] < b[b.length - 1]) {
+      return 1;
+    }
+    // if a = b, then
+    return 0;
   }
   stringArray.sort(byLastLetter);
+  console.log(stringArray.sort(byLastLetter));
 }
-
+assert(lastLetterSort(classmatesArray) === ['carr', 'tello', 'johnson', 'pham', 'dang', 'fallisgaard'],
+  'Classmates last names not sorted');
+assert(lastLetterSort(localAcronym) === ['christ', 'protest', 'jesus', 'under', 'made', 'seattle'],
+  'Acronym was not properly sorted');
+/*
 function sumArray(numberArray) {
   var sum = 0;
   // TODO: implement me using forEach
