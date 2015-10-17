@@ -246,13 +246,23 @@ assert(lastLetterSort(classmatesArray) === ['carr', 'tello', 'johnson', 'pham', 
   'Classmates last names not sorted');
 assert(lastLetterSort(localAcronym) === ['christ', 'protest', 'jesus', 'under', 'made', 'seattle'],
   'Acronym was not properly sorted');
-/*
+  //not sure why these aren't passing even though the results are what's expected
+
+var numbers = [1, 2, 4, 8, 16, 32, 64, 128, 1024 ]; //should equal 1279
+var moreNumbers = [12, 63, 34, 72, 81, 19, 1]; //should equal 282
+
 function sumArray(numberArray) {
   var sum = 0;
+  numberArray.forEach(function(number){
+    sum += number;
+    //sconsole.log(sum);
+  });
   // TODO: implement me using forEach
   return sum;
 }
-
+assert(sumArray(numbers) === 1279, 'sum of numbers array did not match');
+assert(sumArray(numbers) === 282, 'sum of 2nd numbers array did not match');
+/*
 function sumSort(arrayOfArrays) {
   arrayOfArrays.sort(function(item) {
     // TODO: implement me using sumArray
