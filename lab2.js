@@ -263,19 +263,32 @@ function sumArray(numberArray) {
 assert(sumArray(numbers) === 1279, 'sum of numbers array did not match');
 assert(sumArray(moreNumbers) === 282, 'sum of 2nd numbers array did not match');
 
-function sumSort(arrayOfArrays) {
-  var oneSumArray = []; //new array to hold the new sum of numbers
-  //var arrayItem = 0;
-  oneSumArray.push(sumArray(arrayOfArrays));
-  console.log(oneSumArray);
+var unsortedArray = [[7,2],[3,4]]
 
-  arrayOfArrays.sort(function(item) {
+function sumSort(arrayOfArrays) {
+
+  arrayOfArrays.sort(function(a, b) {
     // TODO: implement me using sumArray
     //  order the arrays based on the sum of the numbers
     //  inside each array
+    var firstSum = sumArray(a);
+    var secondSum = sumArray(b);
 
+    if (firstSum > secondSum) {
+      return 1;
+    }
+    if(firstSum < secondSum) {
+      return -1;
+    }
+    // if both are equal
+    return 0;
   });
+  console.log(arrayOfArrays);
+  return arrayOfArrays;
 }
+
+assert(sumSort(unsortedArray) === [[3,4],[7,2]], 'sum of arrays should be sorted');
+
 //console.log(sumSort(numbers));
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
